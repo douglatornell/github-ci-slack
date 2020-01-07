@@ -1,0 +1,18 @@
+# conda environment description file for package testing environment
+#
+# Creates a conda environment in which the package unit tests and
+# coverage analysis can be run.
+# Primarily intended for use by GitHub Actions CI workflow.
+
+name: github-ci-slack-test
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - pip
+
+  # For unit tests and coverage analysis
+  - pytest
+  - coverage
