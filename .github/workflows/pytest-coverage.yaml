@@ -19,11 +19,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: goanpeca/setup-miniconda@v1
         with:
            auto-update-conda: true
            auto-activate-base: false
-           environment-file: environment-test.yaml
+           environment-file: envs/environment-test.yaml
            python-version: ${{ matrix.python-version }}
            activate-environment: github-ci-slack-test
 
@@ -38,3 +39,9 @@ jobs:
       - name: coverage report
         shell: bash -l {0}
         run: coverage report
+
+      - uses: pioug/le-slack-message@v1.0.0
+        with:
+          ACTION_NAME: github-ci-slack pytest & coverage report
+          JOB: ${{ toJson(job) }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
